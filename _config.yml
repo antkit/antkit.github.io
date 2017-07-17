@@ -72,4 +72,4 @@ deploy:
   type: git
   repo: https://github.com/antkit/antkit.github.io.git
   branch: master
-  message: 基础设置，并还原字体CDN为默认google
+  message: 增加 tags 和 categories
