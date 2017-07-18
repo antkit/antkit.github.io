@@ -1,5 +1,6 @@
 ---
 title: Hello Hexo
+date: 2015-03-09 15:54:58
 categories: Hexo
 tags: [Hexo]
 ---
