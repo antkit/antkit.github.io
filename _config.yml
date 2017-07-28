@@ -72,4 +72,4 @@ deploy:
   type: git
   repo: https://github.com/antkit/antkit.github.io.git
   branch: master
-  message: change scheme and add avatar
+  message: refine tangle examples
