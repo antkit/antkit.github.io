@@ -1,0 +1,731 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Gerrit,Ubuntu,Apache," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Gerrit 相关配置Review Site 配置文件12345678910111213141516171819202122232425262728293031323334[gerrit]	basePath = git	serverId = 9e2f813e-92e4-43a7-a3ad-8c16bc7492d0	canonicalWebUrl = http://xxx.com/gerrit/[d">
+<meta name="keywords" content="Gerrit,Ubuntu,Apache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu 配置 Gerrit 与 Apache">
+<meta property="og:url" content="http://blog.antkit.com/2017/05/26/Ubuntu-配置-Gerrit-与-Apache/index.html">
+<meta property="og:site_name" content="Antkit">
+<meta property="og:description" content="Gerrit 相关配置Review Site 配置文件12345678910111213141516171819202122232425262728293031323334[gerrit]	basePath = git	serverId = 9e2f813e-92e4-43a7-a3ad-8c16bc7492d0	canonicalWebUrl = http://xxx.com/gerrit/[d">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-12T00:53:36.942Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu 配置 Gerrit 与 Apache">
+<meta name="twitter:description" content="Gerrit 相关配置Review Site 配置文件12345678910111213141516171819202122232425262728293031323334[gerrit]	basePath = git	serverId = 9e2f813e-92e4-43a7-a3ad-8c16bc7492d0	canonicalWebUrl = http://xxx.com/gerrit/[d">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.antkit.com/2017/05/26/Ubuntu-配置-Gerrit-与-Apache/"/>
+
+
+
+
+<link rel="stylesheet" href="/vendors/prettify/prettify.css" type="text/css">
+<script src="/vendors/prettify/prettify.js" type="text/javascript"></script>
+
+
+  <title>Ubuntu 配置 Gerrit 与 Apache | Antkit</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Antkit</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.antkit.com/2017/05/26/Ubuntu-配置-Gerrit-与-Apache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Martin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Antkit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ubuntu 配置 Gerrit 与 Apache</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-26T16:07:15+08:00">
+                2017-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Gerrit/" itemprop="url" rel="index">
+                    <span itemprop="name">Gerrit</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Gerrit-相关配置"><a href="#Gerrit-相关配置" class="headerlink" title="Gerrit 相关配置"></a>Gerrit 相关配置</h2><h3 id="Review-Site-配置文件"><a href="#Review-Site-配置文件" class="headerlink" title="Review Site 配置文件"></a>Review Site 配置文件</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="section">[gerrit]</span></div><div class="line">	basePath = git</div><div class="line">	serverId = 9e2f813e-92e4-43a7-a3ad-8c16bc7492d0</div><div class="line">	canonicalWebUrl = http://xxx.com/gerrit/</div><div class="line"><span class="section">[database]</span></div><div class="line">	type = mysql</div><div class="line">	hostname = localhost</div><div class="line">	database = reviewdb</div><div class="line">	username = gerrit2</div><div class="line"><span class="section">[index]</span></div><div class="line">	type = LUCENE</div><div class="line"><span class="section">[auth]</span></div><div class="line">	type = HTTP</div><div class="line">	logoutUrl = http://someone:xxx@xxx.com/gerrit/</div><div class="line"><span class="section">[receive]</span></div><div class="line">	enableSignedPush = false</div><div class="line"><span class="section">[sendemail]</span></div><div class="line">	smtpServer = smtp.ym.163.com</div><div class="line">	smtpServerPort = 25</div><div class="line">	smtpUser = gerrit@xxx.com</div><div class="line">	from = gerrit@xxx.com</div><div class="line">	sslVerify = false</div><div class="line"><span class="section">[container]</span></div><div class="line">	user = gerrit2</div><div class="line">	javaHome = /usr/lib/jvm/java-8-oracle/jre</div><div class="line"><span class="section">[sshd]</span></div><div class="line">	listenAddress = *:29418</div><div class="line"><span class="section">[httpd]</span></div><div class="line">	listenUrl = proxy-http://*:8081/gerrit/</div><div class="line"><span class="section">[cache]</span></div><div class="line">	directory = cache</div><div class="line"><span class="section">[gitweb]</span></div><div class="line">	type = gitweb</div><div class="line">	cgi = /usr/lib/cgi-bin/gitweb.cgi</div></pre></td></tr></table></figure>
+<h2 id="Apache-配置文件"><a href="#Apache-配置文件" class="headerlink" title="Apache 配置文件"></a>Apache 配置文件</h2><p>下面的配置文件包含了：</p>
+<ul>
+<li><a href="http://xxx.com" target="_blank" rel="external">http://xxx.com</a></li>
+<li><a href="http://xxx.com/gerrit/" target="_blank" rel="external">http://xxx.com/gerrit/</a></li>
+<li><a href="http://xxx.com/redmine/" target="_blank" rel="external">http://xxx.com/redmine/</a><figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="section">&lt;VirtualHost *&gt;</span></div><div class="line">    <span class="attribute"><span class="nomarkup">ServerName</span></span> xxx.com</div><div class="line">    <span class="attribute"><span class="nomarkup">DocumentRoot</span></span> /var/www/html</div><div class="line"></div><div class="line">    <span class="comment">#</span></div><div class="line">    <span class="comment"># Gerrit configurations</span></div><div class="line">    <span class="comment"># Access http://xxx.com/gerrit/</span></div><div class="line">    <span class="comment">#</span></div><div class="line"></div><div class="line">    <span class="attribute">ProxyRequests</span> <span class="literal">Off</span></div><div class="line">    <span class="attribute">ProxyVia</span> <span class="literal">Off</span></div><div class="line">    <span class="attribute">ProxyPreserveHost</span> <span class="literal">On</span></div><div class="line"></div><div class="line">    <span class="section">&lt;Proxy http://localhost:8081/gerrit/&gt;</span></div><div class="line">        <span class="attribute"><span class="nomarkup">Order</span></span> deny,allow</div><div class="line">        <span class="attribute"><span class="nomarkup">Allow</span></span> from <span class="literal">all</span></div><div class="line">    <span class="section">&lt;/Proxy&gt;</span></div><div class="line"></div><div class="line">    <span class="comment"># Access limited</span></div><div class="line">    <span class="section">&lt;Location "/gerrit/"&gt;</span></div><div class="line">        <span class="attribute">AuthType</span> Basic</div><div class="line">        <span class="attribute">AuthName</span> <span class="string">"Gerrit Code Review"</span></div><div class="line">        <span class="attribute">Require</span> valid-user</div><div class="line">        <span class="attribute">AuthBasicProvider</span> file</div><div class="line">        <span class="attribute">AuthUserFile</span> <span class="string">"/home/passwords"</span></div><div class="line">    <span class="section">&lt;/Location&gt;</span></div><div class="line"></div><div class="line">    <span class="comment"># Can access without athorization</span></div><div class="line">    <span class="section">&lt;Location "/gerrit/external"&gt;</span></div><div class="line">        <span class="comment"># All access controls and authentication are disabled in this directory</span></div><div class="line">        <span class="attribute">Satisfy</span> Any</div><div class="line">        <span class="attribute"><span class="nomarkup">Allow</span></span> from <span class="literal">all</span></div><div class="line">    <span class="section">&lt;/Location&gt;</span></div><div class="line"></div><div class="line">    <span class="attribute">AllowEncodedSlashes</span> <span class="literal">On</span></div><div class="line">    <span class="attribute">ProxyPass</span> /gerrit/ http://localhost:8081/gerrit/ nocanon</div><div class="line"></div><div class="line">    <span class="comment">#</span></div><div class="line">    <span class="comment"># Redmine configurations</span></div><div class="line">    <span class="comment"># Rewrite xxx.com/redmine/ to xxx.com:8080/redmine/</span></div><div class="line">    <span class="comment">#</span></div><div class="line"></div><div class="line">    <span class="attribute"><span class="nomarkup">RewriteEngine</span></span> <span class="literal">On</span></div><div class="line">    <span class="attribute"><span class="nomarkup">RewriteCond</span></span> <span class="variable">%&#123;REQUEST_URI&#125;</span> ^/redmine/<span class="meta"> [NC]</span></div><div class="line">    <span class="attribute"><span class="nomarkup">RewriteRule</span></span> /redmine/(.*) http://xxx.com:8080/redmine/<span class="number">$1</span><span class="meta"> [R=permanent,L]</span></div><div class="line"><span class="section">&lt;/VirtualHost&gt;</span></div><div class="line"></div><div class="line"><span class="comment"># vim: syntax=apache ts=4 sw=4 sts=4 sr noet</span></div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Gerrit/" rel="tag"># Gerrit</a>
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+            <a href="/tags/Apache/" rel="tag"># Apache</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/27/Pyramid-Startup/" rel="next" title="Pyramid Startup">
+                <i class="fa fa-chevron-left"></i> Pyramid Startup
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/06/Ubuntu-用户与权限/" rel="prev" title="Ubuntu 用户与权限">
+                Ubuntu 用户与权限 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Martin" />
+          <p class="site-author-name" itemprop="name">Martin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gerrit-相关配置"><span class="nav-number">1.</span> <span class="nav-text">Gerrit 相关配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Review-Site-配置文件"><span class="nav-number">1.1.</span> <span class="nav-text">Review Site 配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache-配置文件"><span class="nav-number">2.</span> <span class="nav-text">Apache 配置文件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Martin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,748 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,Pyramid," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Here’s a high-level time-ordered overview of what happens when you press return after running pserve development.ini. Pserve commandThe pserve command is invoked under your shell with the argument dev">
+<meta name="keywords" content="Python,Pyramid">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pyramid Startup">
+<meta property="og:url" content="http://blog.antkit.com/2015/08/27/Pyramid-Startup/index.html">
+<meta property="og:site_name" content="Antkit">
+<meta property="og:description" content="Here’s a high-level time-ordered overview of what happens when you press return after running pserve development.ini. Pserve commandThe pserve command is invoked under your shell with the argument dev">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-12T00:53:36.942Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pyramid Startup">
+<meta name="twitter:description" content="Here’s a high-level time-ordered overview of what happens when you press return after running pserve development.ini. Pserve commandThe pserve command is invoked under your shell with the argument dev">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.antkit.com/2015/08/27/Pyramid-Startup/"/>
+
+
+
+
+<link rel="stylesheet" href="/vendors/prettify/prettify.css" type="text/css">
+<script src="/vendors/prettify/prettify.js" type="text/javascript"></script>
+
+
+  <title>Pyramid Startup | Antkit</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Antkit</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.antkit.com/2015/08/27/Pyramid-Startup/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Martin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Antkit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Pyramid Startup</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-08-27T18:12:40+08:00">
+                2015-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Here’s a high-level time-ordered overview of what happens when you press return after running pserve development.ini.</p>
+<h3 id="Pserve-command"><a href="#Pserve-command" class="headerlink" title="Pserve command"></a>Pserve command</h3><p>The pserve command is invoked under your shell with the argument development.ini. As a result, Pyramid recognizes that it is meant to begin to run and serve an application using the information contained within the development.ini file.</p>
+<h3 id="Main-section"><a href="#Main-section" class="headerlink" title="Main section"></a>Main section</h3><p>The framework finds a section named either [app:main], [pipeline:main], or [composite:main] in the .ini file. This section represents the configuration of a WSGI application that will be served. If you’re using a simple application (e.g. [app:main]), the application’s paste.app_factory entry point will be named on the use= line within the section’s configuration.</p>
+<p>If, instead of a simple application, you’re using a WSGI pipeline (e.g. a [pipeline:main] section), the application named on the “last” element will refer to your Pyramid application. If instead of a simple application or a pipeline, you’re using a “composite” (e.g. [composite:main]), refer to the documentation for that particular composite to understand how to make it refer to your Pyramid application. In most cases, a Pyramid application built from a scaffold will have a single [app:main] section in it, and this will be the application served.</p>
+<h3 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h3><p>The framework finds all logging related configuration in the .ini file and uses it to configure the Python standard library logging system for this application. See Logging Configuration for more information.</p>
+<h3 id="Application-constructor"><a href="#Application-constructor" class="headerlink" title="Application constructor"></a>Application constructor</h3><p>The application’s constructor named by the entry point reference on the use= line of the section representing your Pyramid application is passed the key/value parameters mentioned within the section in which it’s defined. The constructor is meant to return a router instance, which is a WSGI application.<br><br>For Pyramid applications, the constructor will be a function named main in the <strong>init</strong>.py file within the package in which your application lives. If this function succeeds, it will return a Pyramid router instance. Here’s the contents of an example <strong>init</strong>.py module:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pyramid.config <span class="keyword">import</span> Configurator</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(global_config, **settings)</span>:</span></div><div class="line">    <span class="string">""" This function returns a Pyramid WSGI application.</span></div><div class="line"><span class="string">    """</span></div><div class="line">    config = Configurator(settings=settings)</div><div class="line">    config.include(<span class="string">'pyramid_chameleon'</span>)</div><div class="line">    config.add_static_view(<span class="string">'static'</span>, <span class="string">'static'</span>, cache_max_age=<span class="number">3600</span>)</div><div class="line">    config.add_route(<span class="string">'home'</span>, <span class="string">'/'</span>)</div><div class="line">    config.scan()</div><div class="line">    <span class="keyword">return</span> config.make_wsgi_app()</div></pre></td></tr></table></figure></p>
+<p>Note that the constructor function accepts a global_config argument, which is a dictionary of key/value pairs mentioned in the [DEFAULT] section of an .ini file (if [DEFAULT] is present).<br>It also accepts a <strong>settings argument, which collects another set of arbitrary key/value pairs. The arbitrary key/value pairs received by this function in </strong>settings will be composed of all the key/value pairs that are present in the [app:main] section (except for the use= setting) when this function is called by when you run pserve.</p>
+<p>Our generated development.ini file looks like so:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="comment">###</span></div><div class="line"><span class="comment"># app configuration</span></div><div class="line"><span class="comment"># http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html</span></div><div class="line"><span class="comment">###</span></div><div class="line"></div><div class="line"><span class="section">[app:main]</span></div><div class="line"><span class="attr">use</span> = egg:MyProject</div><div class="line"></div><div class="line">pyramid.reload_templates = true</div><div class="line">pyramid.debug_authorization = false</div><div class="line">pyramid.debug_notfound = false</div><div class="line">pyramid.debug_routematch = false</div><div class="line">pyramid.default_locale_name = en</div><div class="line">pyramid.includes =</div><div class="line">pyramid_debugtoolbar</div><div class="line"></div><div class="line"><span class="comment"># By default, the toolbar only appears for clients from IP addresses</span></div><div class="line"><span class="comment"># '127.0.0.1' and '::1'.</span></div><div class="line"><span class="comment"># debugtoolbar.hosts = 127.0.0.1 ::1</span></div><div class="line"></div><div class="line"><span class="comment">###</span></div><div class="line"><span class="comment"># wsgi server configuration</span></div><div class="line"><span class="comment">###</span></div><div class="line"></div><div class="line"><span class="section">[server:main]</span></div><div class="line"><span class="attr">use</span> = egg:waitress#main</div><div class="line"><span class="attr">host</span> = <span class="number">0.0</span>.<span class="number">0.0</span></div><div class="line"><span class="attr">port</span> = <span class="number">6543</span></div><div class="line"></div><div class="line"><span class="comment">###</span></div><div class="line"><span class="comment"># logging configuration</span></div><div class="line"><span class="comment"># http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/logging.html</span></div><div class="line"><span class="comment">###</span></div><div class="line"></div><div class="line"><span class="section">[loggers]</span></div><div class="line"><span class="attr">keys</span> = root, myproject</div><div class="line"></div><div class="line"><span class="section">[handlers]</span></div><div class="line"><span class="attr">keys</span> = console</div><div class="line"></div><div class="line"><span class="section">[formatters]</span></div><div class="line"><span class="attr">keys</span> = generic</div><div class="line"></div><div class="line"><span class="section">[logger_root]</span></div><div class="line"><span class="attr">level</span> = INFO</div><div class="line"><span class="attr">handlers</span> = console</div><div class="line"></div><div class="line"><span class="section">[logger_myproject]</span></div><div class="line"><span class="attr">level</span> = DEBUG</div><div class="line"><span class="attr">handlers</span> =</div><div class="line"><span class="attr">qualname</span> = myproject</div><div class="line"></div><div class="line"><span class="section">[handler_console]</span></div><div class="line"><span class="attr">class</span> = StreamHandler</div><div class="line"><span class="attr">args</span> = (sys.stderr,)</div><div class="line"><span class="attr">level</span> = NOTSET</div><div class="line"><span class="attr">formatter</span> = generic</div><div class="line"></div><div class="line"><span class="section">[formatter_generic]</span></div><div class="line"><span class="attr">format</span> = %(asctime)s %(levelname)-<span class="number">5.5</span>s [%(name)s][%(threadName)s] %(message)s</div></pre></td></tr></table></figure></p>
+<p>In this case, the myproject.<strong>init</strong>:main function referred to by the entry point URI egg:MyProject (see development.ini for more information about entry point URIs, and how they relate to callables), will receive the key/value pairs {‘pyramid.reload_templates’:’true’, ‘pyramid.debug_authorization’:’false’, ‘pyramid.debug_notfound’:’false’, ‘pyramid.debug_routematch’:’false’, ‘pyramid.debug_templates’:’true’, ‘pyramid.default_locale_name’:’en’}. See Environment Variables and .ini File Settings for the meanings of these keys.</p>
+<h3 id="Settings-dictinary"><a href="#Settings-dictinary" class="headerlink" title="Settings dictinary"></a>Settings dictinary</h3><p>The main function first constructs a Configurator instance, passing the settings dictionary captured via the **settings kwarg as its settings argument.</p>
+<p>The settings dictionary contains all the options in the [app:main] section of our .ini file except the use option (which is internal to PasteDeploy) such as pyramid.reload_templates,<br>pyramid.debug_authorization, etc.</p>
+<h3 id="Application-registry"><a href="#Application-registry" class="headerlink" title="Application registry"></a>Application registry</h3><p>The main function then calls various methods on the instance of the class Configurator created in the previous step. The intent of calling these methods is to populate an application registry, which represents the Pyramid configuration related to the application.</p>
+<h3 id="Call-make-wsgi-app"><a href="#Call-make-wsgi-app" class="headerlink" title="Call make_wsgi_app"></a>Call make_wsgi_app</h3><p>The make_wsgi_app() method is called. The result is a router instance. The router is associated with the application registry implied by the configurator previously populated by other methods run against the Configurator. The router is a WSGI application.</p>
+<h3 id="Emmit-ApplicationCreated-event"><a href="#Emmit-ApplicationCreated-event" class="headerlink" title="Emmit ApplicationCreated event"></a>Emmit ApplicationCreated event</h3><p>An ApplicationCreated event is emitted (see Using Events for more information about events).</p>
+<h3 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h3><p>Assuming there were no errors, the main function in myproject returns the router instance created by pyramid.config.Configurator.make_wsgi_app() back to pserve. As far as pserve is concerned, it is “just another WSGI application”.</p>
+<h3 id="WSGI-server"><a href="#WSGI-server" class="headerlink" title="WSGI server"></a>WSGI server</h3><p>pserve starts the WSGI server defined within the [server:main] section. In our case, this is the Waitress server (use = egg:waitress#main), and it will listen on all interfaces (host = 0.0.0.0), on port number 6543 (port = 6543). The server code itself is what prints serving on 0.0.0.0:6543 view at <a href="http://127.0.0.1:6543" target="_blank" rel="external">http://127.0.0.1:6543</a>. The server serves the application, and the application is running, waiting to receive requests.</p>
+<p><strong>About development.ini</strong></p>
+<p>The development.ini file is a PasteDeploy configuration file. Its purpose is to specify an application to run when you invoke pserve, as well as the deployment settings provided to that application.</p>
+<p>This file contains several sections including [app:main], [server:main] and several other sections related to logging configuration.</p>
+<p>The [app:main] section represents configuration for your Pyramid application. The use setting is the only setting required to be present in the [app:main] section. Its default value, egg:MyProject, indicates that our MyProject project contains the application that should be served. Other settings added to this section are passed as keyword arguments to the function named main in our package’s <strong>init</strong>.py module. You can provide startup-time configuration parameters to your application by adding more settings to this section.</p>
+<p>The line in [app:main] above that says use = egg:MyProject is actually shorthand for a longer spelling: use = egg:MyProject#main. The #main part is omitted for brevity, as #main is a default defined by PasteDeploy. egg:MyProject#main is a string which has meaning to PasteDeploy. It points at a setuptools entry point named main defined in the MyProject project.</p>
+<p>See Entry Points and PasteDeploy .ini Files for more information about the meaning of the use = egg:MyProject value in this section.</p>
+<p>Take a look at the generated setup.py file for this project.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup, find_packages</div><div class="line"></div><div class="line">here = os.path.abspath(os.path.dirname(__file__))</div><div class="line"><span class="keyword">with</span> open(os.path.join(here, <span class="string">'README.txt'</span>)) <span class="keyword">as</span> f:</div><div class="line">    README = f.read()</div><div class="line"><span class="keyword">with</span> open(os.path.join(here, <span class="string">'CHANGES.txt'</span>)) <span class="keyword">as</span> f:</div><div class="line">    CHANGES = f.read()</div><div class="line"></div><div class="line">requires = [</div><div class="line">    <span class="string">'pyramid'</span>,</div><div class="line">    <span class="string">'pyramid_chameleon'</span>,</div><div class="line">    <span class="string">'pyramid_debugtoolbar'</span>,</div><div class="line">    <span class="string">'waitress'</span>,</div><div class="line">]</div><div class="line"></div><div class="line">setup(name=<span class="string">'MyProject'</span>,</div><div class="line">    version=<span class="string">'0.0'</span>,</div><div class="line">    description=<span class="string">'MyProject'</span>,</div><div class="line">    long_description=README + <span class="string">'\n\n'</span> + CHANGES,</div><div class="line">    classifiers=[</div><div class="line">        <span class="string">"Programming Language :: Python"</span>,</div><div class="line">        <span class="string">"Framework :: Pyramid"</span>,</div><div class="line">        <span class="string">"Topic :: Internet :: WWW/HTTP"</span>,</div><div class="line">        <span class="string">"Topic :: Internet :: WWW/HTTP :: WSGI :: Application"</span>,</div><div class="line">    ],</div><div class="line">    author=<span class="string">''</span>,</div><div class="line">    author_email=<span class="string">''</span>,</div><div class="line">    url=<span class="string">''</span>,</div><div class="line">    keywords=<span class="string">'web pyramid pylons'</span>,</div><div class="line">    packages=find_packages(),</div><div class="line">    include_package_data=<span class="keyword">True</span>,</div><div class="line">    zip_safe=<span class="keyword">False</span>,</div><div class="line">    install_requires=requires,</div><div class="line">    tests_require=requires,</div><div class="line">    test_suite=<span class="string">"myproject"</span>,</div><div class="line">    entry_points=<span class="string">"""\</span></div><div class="line"><span class="string">    [paste.app_factory]</span></div><div class="line"><span class="string">    main = myproject:main</span></div><div class="line"><span class="string">    """</span>,</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<p>Note that entry_points is assigned a string which looks a lot like an .ini file. This string representation of an .ini file has a section named [paste.app_factory]. Within this section, there is a<br>key named main (the entry point name) which has a value myproject:main. The key main is what our egg:MyProject#main value of the use section in our config file is pointing at, although it isactually shortened to egg:MyProject there. The value represents a dotted Python name path, which refers to a callable in our myproject package’s <strong>init</strong>.py module.</p>
+<p>The egg: prefix in egg:MyProject indicates that this is an entry point URI specifier, where the “scheme” is “egg”. An “egg” is created when you run setup.py install or setup.py develop within your project.</p>
+<p>In English, this entry point can thus be referred to as a “PasteDeploy application factory in the MyProject project which has the entry point named main where the entry point refers to a main function in the mypackage module”. Indeed, if you open up the <strong>init</strong>.py module generated within any scaffold-generated package, you’ll see a main function. This is the function called by PasteDeploy when the pserve command is invoked against our application. It accepts a global configuration object and returns an instance of our application.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Pyramid/" rel="tag"># Pyramid</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/04/09/WebKit渲染流程/" rel="next" title="WebKit渲染流程">
+                <i class="fa fa-chevron-left"></i> WebKit渲染流程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/26/Ubuntu-配置-Gerrit-与-Apache/" rel="prev" title="Ubuntu 配置 Gerrit 与 Apache">
+                Ubuntu 配置 Gerrit 与 Apache <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Martin" />
+          <p class="site-author-name" itemprop="name">Martin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pserve-command"><span class="nav-number">1.</span> <span class="nav-text">Pserve command</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Main-section"><span class="nav-number">2.</span> <span class="nav-text">Main section</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logging"><span class="nav-number">3.</span> <span class="nav-text">Logging</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Application-constructor"><span class="nav-number">4.</span> <span class="nav-text">Application constructor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Settings-dictinary"><span class="nav-number">5.</span> <span class="nav-text">Settings dictinary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Application-registry"><span class="nav-number">6.</span> <span class="nav-text">Application registry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Call-make-wsgi-app"><span class="nav-number">7.</span> <span class="nav-text">Call make_wsgi_app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Emmit-ApplicationCreated-event"><span class="nav-number">8.</span> <span class="nav-text">Emmit ApplicationCreated event</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Router"><span class="nav-number">9.</span> <span class="nav-text">Router</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WSGI-server"><span class="nav-number">10.</span> <span class="nav-text">WSGI server</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Martin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

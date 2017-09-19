@@ -1,0 +1,729 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Project Tango," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Basic example hello video完整的代码可以在 github 上找到。 On tango service connected范例基于 Android 开发，我们从 JNI 以下的代码说起。当连接到 tango 设备时的回调处理：12345JNIEXPORT void JNICALLJava_com_projecttango_examples_cpp_hellovideo_Tan">
+<meta name="keywords" content="Project Tango">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tango Example hello video">
+<meta property="og:url" content="http://blog.antkit.com/2017/07/28/Tango-Example-Hello-Video/index.html">
+<meta property="og:site_name" content="Antkit">
+<meta property="og:description" content="Basic example hello video完整的代码可以在 github 上找到。 On tango service connected范例基于 Android 开发，我们从 JNI 以下的代码说起。当连接到 tango 设备时的回调处理：12345JNIEXPORT void JNICALLJava_com_projecttango_examples_cpp_hellovideo_Tan">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-12T00:53:36.942Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tango Example hello video">
+<meta name="twitter:description" content="Basic example hello video完整的代码可以在 github 上找到。 On tango service connected范例基于 Android 开发，我们从 JNI 以下的代码说起。当连接到 tango 设备时的回调处理：12345JNIEXPORT void JNICALLJava_com_projecttango_examples_cpp_hellovideo_Tan">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.antkit.com/2017/07/28/Tango-Example-Hello-Video/"/>
+
+
+
+
+<link rel="stylesheet" href="/vendors/prettify/prettify.css" type="text/css">
+<script src="/vendors/prettify/prettify.js" type="text/javascript"></script>
+
+
+  <title>Tango Example hello video | Antkit</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Antkit</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.antkit.com/2017/07/28/Tango-Example-Hello-Video/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Martin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Antkit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tango Example hello video</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-28T09:24:52+08:00">
+                2017-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tango/" itemprop="url" rel="index">
+                    <span itemprop="name">Tango</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Basic-example-hello-video"><a href="#Basic-example-hello-video" class="headerlink" title="Basic example hello video"></a>Basic example hello video</h2><p>完整的代码可以在 <a href="https://github.com/googlesamples/tango-examples-c/blob/master/cpp_basic_examples/hello_video" target="_blank" rel="external">github</a> 上找到。</p>
+<h2 id="On-tango-service-connected"><a href="#On-tango-service-connected" class="headerlink" title="On tango service connected"></a>On tango service connected</h2><p>范例基于 Android 开发，我们从 JNI 以下的代码说起。当连接到 tango 设备时的回调处理：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">JNIEXPORT <span class="keyword">void</span> JNICALL</div><div class="line">Java_com_projecttango_examples_cpp_hellovideo_TangoJniNative_onTangoServiceConnected(</div><div class="line">    JNIEnv* env, jobject, jobject binder) &#123;</div><div class="line">  app.OnTangoServiceConnected(env, binder);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> HelloVideoApp::OnTangoServiceConnected(JNIEnv* env, jobject binder) &#123;</div><div class="line">  ...</div><div class="line">  <span class="comment">// Enable color camera from config.</span></div><div class="line">  <span class="keyword">int</span> ret = TangoConfig_setBool(tango_config_, <span class="string">"config_enable_color_camera"</span>,</div><div class="line">                                <span class="literal">true</span>);</div><div class="line">  ret = TangoService_connectOnFrameAvailable(TANGO_CAMERA_COLOR, <span class="keyword">this</span>,</div><div class="line">                                             OnFrameAvailableRouter);</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从上面的代码可以看到我们启用了 color camera，并注册了 FrameAvailbale 的回调 OnFrameAvailableRouter。</p>
+<h2 id="On-frame-available"><a href="#On-frame-available" class="headerlink" title="On frame available"></a>On frame available</h2><p>接下来我们看看在回调函数中是如何处理每一帧数据的：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">namespace</span> &#123;</div><div class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> kTangoCoreMinimumVersion = <span class="number">9377</span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">OnFrameAvailableRouter</span><span class="params">(<span class="keyword">void</span>* context, TangoCameraId,</span></span></div><div class="line"><span class="function"><span class="params">                            <span class="keyword">const</span> TangoImageBuffer* buffer)</span> </span>&#123;</div><div class="line">  hello_video::HelloVideoApp* app =</div><div class="line">      <span class="keyword">static_cast</span>&lt;hello_video::HelloVideoApp*&gt;(context);</div><div class="line">  app-&gt;OnFrameAvailable(buffer);</div><div class="line">&#125;</div><div class="line">&#125;  <span class="comment">// namespace</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> HelloVideoApp::OnFrameAvailable(<span class="keyword">const</span> TangoImageBuffer* buffer) &#123;</div><div class="line">  <span class="keyword">if</span> (current_texture_method_ != TextureMethod::kYuv) &#123;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (yuv_drawable_-&gt;GetTextureId() == <span class="number">0</span>) &#123;</div><div class="line">    LOGE(<span class="string">"HelloVideoApp::yuv texture id not valid"</span>);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (buffer-&gt;format != TANGO_HAL_PIXEL_FORMAT_YCrCb_420_SP) &#123;</div><div class="line">    LOGE(<span class="string">"HelloVideoApp::yuv texture format is not supported by this app"</span>);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// The memory needs to be allocated after we get the first frame because we</span></div><div class="line">  <span class="comment">// need to know the size of the image.</span></div><div class="line">  <span class="keyword">if</span> (!is_yuv_texture_available_) &#123;</div><div class="line">    yuv_width_ = buffer-&gt;width;</div><div class="line">    yuv_height_ = buffer-&gt;height;</div><div class="line">    uv_buffer_offset_ = yuv_width_ * yuv_height_;</div><div class="line"></div><div class="line">    yuv_size_ = yuv_width_ * yuv_height_ + yuv_width_ * yuv_height_ / <span class="number">2</span>;</div><div class="line"></div><div class="line">    <span class="comment">// Reserve and resize the buffer size for RGB and YUV data.</span></div><div class="line">    yuv_buffer_.resize(yuv_size_);</div><div class="line">    yuv_temp_buffer_.resize(yuv_size_);</div><div class="line">    rgb_buffer_.resize(yuv_width_ * yuv_height_ * <span class="number">3</span>);</div><div class="line"></div><div class="line">    AllocateTexture(yuv_drawable_-&gt;GetTextureId(), yuv_width_, yuv_height_);</div><div class="line">    is_yuv_texture_available_ = <span class="literal">true</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; lock(yuv_buffer_mutex_);</div><div class="line">  <span class="built_in">memcpy</span>(&amp;yuv_temp_buffer_[<span class="number">0</span>], buffer-&gt;data, yuv_size_);</div><div class="line">  swap_buffer_signal_ = <span class="literal">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从 tango color camera 获取的是 YUV 格式，单帧数据被保存到成员变量 yuv_temp<em>buffer</em> 中，yuv_temp<em>buffer</em> 的定义如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">uint8_t</span>&gt; yuv_temp_buffer_;</div></pre></td></tr></table></figure></p>
+<h2 id="Render-YUV"><a href="#Render-YUV" class="headerlink" title="Render YUV"></a>Render YUV</h2><p>yuv_temp<em>buffer</em> 所保存的数据进行渲染：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> HelloVideoApp::OnDrawFrame() &#123;</div><div class="line">  glClearColor(<span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>);</div><div class="line">  glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (!is_service_connected_) &#123;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (!is_texture_id_set_) &#123;</div><div class="line">    is_texture_id_set_ = <span class="literal">true</span>;</div><div class="line">    <span class="comment">// Connect color camera texture. TangoService_connectTextureId expects a</span></div><div class="line">    <span class="comment">// valid texture id from the caller, so we will need to wait until the GL</span></div><div class="line">    <span class="comment">// content is properly allocated.</span></div><div class="line">    <span class="keyword">int</span> texture_id = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(video_overlay_drawable_-&gt;GetTextureId());</div><div class="line">    TangoErrorType ret = TangoService_connectTextureId(</div><div class="line">        TANGO_CAMERA_COLOR, texture_id, <span class="literal">nullptr</span>, <span class="literal">nullptr</span>);</div><div class="line">    <span class="keyword">if</span> (ret != TANGO_SUCCESS) &#123;</div><div class="line">      LOGE(</div><div class="line">          <span class="string">"HelloVideoApp: Failed to connect the texture id with error"</span></div><div class="line">          <span class="string">"code: %d"</span>,</div><div class="line">          ret);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (!is_video_overlay_rotation_set_) &#123;</div><div class="line">    video_overlay_drawable_-&gt;SetDisplayRotation(display_rotation_);</div><div class="line">    yuv_drawable_-&gt;SetDisplayRotation(display_rotation_);</div><div class="line">    is_video_overlay_rotation_set_ = <span class="literal">true</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">switch</span> (current_texture_method_) &#123;</div><div class="line">    <span class="keyword">case</span> TextureMethod::kYuv:</div><div class="line">      RenderYuv();</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">    <span class="keyword">case</span> TextureMethod::kTextureId:</div><div class="line">      RenderTextureId();</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> HelloVideoApp::RenderYuv() &#123;</div><div class="line">  <span class="keyword">if</span> (!is_yuv_texture_available_) &#123;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">  &#123;</div><div class="line">    <span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; lock(yuv_buffer_mutex_);</div><div class="line">    <span class="keyword">if</span> (swap_buffer_signal_) &#123;</div><div class="line">      <span class="built_in">std</span>::swap(yuv_buffer_, yuv_temp_buffer_);</div><div class="line">      swap_buffer_signal_ = <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; yuv_height_; ++i) &#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; yuv_width_; ++j) &#123;</div><div class="line">      <span class="keyword">size_t</span> x_index = j;</div><div class="line">      <span class="keyword">if</span> (j % <span class="number">2</span> != <span class="number">0</span>) &#123;</div><div class="line">        x_index = j - <span class="number">1</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">size_t</span> rgb_index = (i * yuv_width_ + j) * <span class="number">3</span>;</div><div class="line"></div><div class="line">      <span class="comment">// The YUV texture format is NV21,</span></div><div class="line">      <span class="comment">// yuv_buffer_ buffer layout:</span></div><div class="line">      <span class="comment">//   [y0, y1, y2, ..., yn, v0, u0, v1, u1, ..., v(n/4), u(n/4)]</span></div><div class="line">      Yuv2Rgb(</div><div class="line">          yuv_buffer_[i * yuv_width_ + j],</div><div class="line">          yuv_buffer_[uv_buffer_offset_ + (i / <span class="number">2</span>) * yuv_width_ + x_index + <span class="number">1</span>],</div><div class="line">          yuv_buffer_[uv_buffer_offset_ + (i / <span class="number">2</span>) * yuv_width_ + x_index],</div><div class="line">          &amp;rgb_buffer_[rgb_index], &amp;rgb_buffer_[rgb_index + <span class="number">1</span>],</div><div class="line">          &amp;rgb_buffer_[rgb_index + <span class="number">2</span>]);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  glBindTexture(GL_TEXTURE_2D, yuv_drawable_-&gt;GetTextureId());</div><div class="line">  glTexImage2D(GL_TEXTURE_2D, <span class="number">0</span>, GL_RGB, yuv_width_, yuv_height_, <span class="number">0</span>, GL_RGB,</div><div class="line">               GL_UNSIGNED_BYTE, rgb_buffer_.data());</div><div class="line"></div><div class="line">  yuv_drawable_-&gt;Render(glm::mat4(<span class="number">1.0f</span>), glm::mat4(<span class="number">1.0f</span>));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在上面 RenderYuv 函数告诉了我们更多信息，color camera 获取的是 YUV NV21 格式，如何将它转为 RGB：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// We could do this conversion in a fragment shader if all we care about is</span></div><div class="line"><span class="comment">// rendering, but we show it here as an example of how people can use RGB data</span></div><div class="line"><span class="comment">// on the CPU.</span></div><div class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Yuv2Rgb</span><span class="params">(<span class="keyword">uint8_t</span> y_value, <span class="keyword">uint8_t</span> u_value, <span class="keyword">uint8_t</span> v_value,</span></span></div><div class="line"><span class="function"><span class="params">                    <span class="keyword">uint8_t</span>* r, <span class="keyword">uint8_t</span>* g, <span class="keyword">uint8_t</span>* b)</span> </span>&#123;</div><div class="line">  <span class="keyword">float</span> float_r = y_value + (<span class="number">1.370705</span> * (v_value - <span class="number">128</span>));</div><div class="line">  <span class="keyword">float</span> float_g =</div><div class="line">      y_value - (<span class="number">0.698001</span> * (v_value - <span class="number">128</span>)) - (<span class="number">0.337633</span> * (u_value - <span class="number">128</span>));</div><div class="line">  <span class="keyword">float</span> float_b = y_value + (<span class="number">1.732446</span> * (u_value - <span class="number">128</span>));</div><div class="line"></div><div class="line">  float_r = float_r * !(float_r &lt; <span class="number">0</span>);</div><div class="line">  float_g = float_g * !(float_g &lt; <span class="number">0</span>);</div><div class="line">  float_b = float_b * !(float_b &lt; <span class="number">0</span>);</div><div class="line"></div><div class="line">  *r = float_r * (!(float_r &gt; <span class="number">255</span>)) + <span class="number">255</span> * (float_r &gt; <span class="number">255</span>);</div><div class="line">  *g = float_g * (!(float_g &gt; <span class="number">255</span>)) + <span class="number">255</span> * (float_g &gt; <span class="number">255</span>);</div><div class="line">  *b = float_b * (!(float_b &gt; <span class="number">255</span>)) + <span class="number">255</span> * (float_b &gt; <span class="number">255</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Project-Tango/" rel="tag"># Project Tango</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/24/ROS/" rel="next" title="ROS">
+                <i class="fa fa-chevron-left"></i> ROS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/28/Tango-Example-hello-depth-perception/" rel="prev" title="Tango Example hello depth perception">
+                Tango Example hello depth perception <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Martin" />
+          <p class="site-author-name" itemprop="name">Martin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-example-hello-video"><span class="nav-number">1.</span> <span class="nav-text">Basic example hello video</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#On-tango-service-connected"><span class="nav-number">2.</span> <span class="nav-text">On tango service connected</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#On-frame-available"><span class="nav-number">3.</span> <span class="nav-text">On frame available</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Render-YUV"><span class="nav-number">4.</span> <span class="nav-text">Render YUV</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Martin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,743 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Ubuntu,apt mirror," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="安装 apt-mirror安装很简单，PPA自带：1$ sudo apt-get install apt-mirror 配置 apt-mirrorapt-mirror 的配置文件位于 /etc/apt/mirror.list，我们在使用前做一下配置：1$ sudo vim /etc/apt/mirror.list 1234567891011121314151617181920212223#####">
+<meta name="keywords" content="Ubuntu,apt mirror">
+<meta property="og:type" content="article">
+<meta property="og:title" content="apt-mirror">
+<meta property="og:url" content="http://blog.antkit.com/2017/07/10/Ubuntu-apt-mirror/index.html">
+<meta property="og:site_name" content="Antkit">
+<meta property="og:description" content="安装 apt-mirror安装很简单，PPA自带：1$ sudo apt-get install apt-mirror 配置 apt-mirrorapt-mirror 的配置文件位于 /etc/apt/mirror.list，我们在使用前做一下配置：1$ sudo vim /etc/apt/mirror.list 1234567891011121314151617181920212223#####">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-12T00:53:36.942Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="apt-mirror">
+<meta name="twitter:description" content="安装 apt-mirror安装很简单，PPA自带：1$ sudo apt-get install apt-mirror 配置 apt-mirrorapt-mirror 的配置文件位于 /etc/apt/mirror.list，我们在使用前做一下配置：1$ sudo vim /etc/apt/mirror.list 1234567891011121314151617181920212223#####">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.antkit.com/2017/07/10/Ubuntu-apt-mirror/"/>
+
+
+
+
+<link rel="stylesheet" href="/vendors/prettify/prettify.css" type="text/css">
+<script src="/vendors/prettify/prettify.js" type="text/javascript"></script>
+
+
+  <title>apt-mirror | Antkit</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Antkit</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.antkit.com/2017/07/10/Ubuntu-apt-mirror/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Martin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Antkit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">apt-mirror</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T15:54:58+08:00">
+                2017-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ubuntu/" itemprop="url" rel="index">
+                    <span itemprop="name">Ubuntu</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="安装-apt-mirror"><a href="#安装-apt-mirror" class="headerlink" title="安装 apt-mirror"></a>安装 apt-mirror</h2><p>安装很简单，PPA自带：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install apt-mirror</div></pre></td></tr></table></figure></p>
+<h2 id="配置-apt-mirror"><a href="#配置-apt-mirror" class="headerlink" title="配置 apt-mirror"></a>配置 apt-mirror</h2><p>apt-mirror 的配置文件位于 /etc/apt/mirror.list，我们在使用前做一下配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo vim /etc/apt/mirror.list</div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">############# config ##################</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="built_in">set</span> base_path    /var/wwwroot/apt-mirror</div><div class="line"><span class="built_in">set</span> run_postmirror 0</div><div class="line"><span class="built_in">set</span> nthreads     20</div><div class="line"><span class="built_in">set</span> _tilde 0</div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">############# end config ##############</span></div><div class="line"></div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial universe</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial multiverse</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates multiverse</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security multiverse</div><div class="line">deb https://download.docker.com/linux/ubuntu xenial stable</div><div class="line"></div><div class="line">clean http://mirrors.aliyun.com/ubuntu</div><div class="line">clean https://download.docker.com/linux/ubuntu</div></pre></td></tr></table></figure>
+<p>关于这个配置文件：</p>
+<ul>
+<li>base_path 告诉 apt-mirror 下载的数据存在哪里。</li>
+<li>run_postmirror 置为 0 告诉 apt-mirror 不要运行 post script，虽然这个不设置也不影响正常使用，但在 apt-mirror 运行结束时会报一个讨厌的错误信息。</li>
+<li>deb 这些行告诉 apt-mirror 从哪里获取 package，这里我们选择了 aliyun 的镜像服务。另外，我们也把 docker 官方源给加了进去。</li>
+<li>deb-src 也是被支持的，我们这里没有使用，如果你需要的话请自行加上去。</li>
+<li>deb [arch=amd64]，可以这样使用来告诉 apt-mirror 取 64 位版本，否则 apt-mirror 以默认方式取与本机架构一致的版本。</li>
+<li>这个是 Ubuntu 16.04（即 xenial）版本，其他版本请自行调整。</li>
+<li>clean 结束时做一些清理工作。</li>
+</ul>
+<h2 id="运行-apt-mirror"><a href="#运行-apt-mirror" class="headerlink" title="运行 apt-mirror"></a>运行 apt-mirror</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-mirror</div></pre></td></tr></table></figure>
+<p>运行结束后，可以查看一下结果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$ tree -L 4 /var/wwwroot/apt-mirror</div><div class="line">/var/wwwroot/apt-mirror/</div><div class="line">├── mirror</div><div class="line">│   ├── download.docker.com</div><div class="line">│   │   └── linux</div><div class="line">│   │       └── ubuntu</div><div class="line">│   ├── mirrors.aliyun.com</div><div class="line">│   │   └── ubuntu</div><div class="line">│   │       ├── dists</div><div class="line">│   │       └── pool</div><div class="line">├── skel</div><div class="line">│   ├── download.docker.com</div><div class="line">│   │   └── linux</div><div class="line">│   │       └── ubuntu</div><div class="line">│   ├── mirrors.aliyun.com</div><div class="line">│   │   ├── robots.txt</div><div class="line">│   │   └── ubuntu</div><div class="line">│   │       └── dists</div><div class="line">└── var</div><div class="line">    ├── ALL</div><div class="line">    ├── archive-log.0</div><div class="line">    ├── archive-log.1</div></pre></td></tr></table></figure></p>
+<h2 id="配置-HTTP-Server"><a href="#配置-HTTP-Server" class="headerlink" title="配置 HTTP Server"></a>配置 HTTP Server</h2><p>配置 HTTP Server，使得可以通过 HTTP 访问刚获取到的 mirror 仓库。以 Apache 为例：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">VirtualHost</span> *&gt;</span></div><div class="line">    ...</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">Location</span> /<span class="attr">apt-mirror</span>&gt;</span></div><div class="line">        Options Indexes FollowSymLinks</div><div class="line">        AllowOverride All</div><div class="line">        Require all granted</div><div class="line">    <span class="tag">&lt;/<span class="name">Location</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">VirtualHost</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="应用-mirror"><a href="#应用-mirror" class="headerlink" title="应用 mirror"></a>应用 mirror</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo vim /etc/apt/sources.list</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">deb [arch=amd64] http://192.168.0.11/apt-mirror/mirror/mirrors.aliyun.com/ubuntu/ xenial main restricted</div><div class="line">deb [arch=amd64] http://192.168.0.11/apt-mirror/mirror/mirrors.aliyun.com/ubuntu/ xenial-updates main restricted</div><div class="line">deb [arch=amd64] http://192.168.0.11/apt-mirror/mirror/mirrors.aliyun.com/ubuntu/ xenial universe</div><div class="line">deb [arch=amd64] http://192.168.0.11/apt-mirror/mirror/mirrors.aliyun.com/ubuntu/ xenial-updates universe</div><div class="line">deb [arch=amd64] http://192.168.0.11/apt-mirror/mirror/mirrors.aliyun.com/ubuntu/ xenial multiverse</div><div class="line">deb [arch=amd64] http://192.168.0.11/apt-mirror/mirror/mirrors.aliyun.com/ubuntu/ xenial-updates multiverse</div><div class="line">deb [arch=amd64] http://192.168.0.11/apt-mirror/mirror/mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse</div><div class="line">deb [arch=amd64] http://192.168.0.11/apt-mirror/mirror/mirrors.aliyun.com/ubuntu/ xenial-security main restricted</div><div class="line">deb [arch=amd64] http://192.168.0.11/apt-mirror/mirror/mirrors.aliyun.com/ubuntu/ xenial-security universe</div><div class="line">deb [arch=amd64] http://192.168.0.11/apt-mirror/mirror/mirrors.aliyun.com/ubuntu/ xenial-security multiverse</div><div class="line">deb [arch=amd64] http://192.168.0.11/apt-mirror/mirror/download.docker.com/linux/ubuntu/ xenial stable</div></pre></td></tr></table></figure>
+<p>配置文件里面的 192.168.0.11 是内部 mirror 服务器的 IP 地址。</p>
+<p>[arch=amd64] 是必须的，否则服务器会报 404 错误。32 位版本请做调整。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>请定时运行 apt-mirror 程序以更新本地仓库。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+            <a href="/tags/apt-mirror/" rel="tag"># apt mirror</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/06/Ubuntu-用户与权限/" rel="next" title="Ubuntu 用户与权限">
+                <i class="fa fa-chevron-left"></i> Ubuntu 用户与权限
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/10/Celery/" rel="prev" title="Celery">
+                Celery <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Martin" />
+          <p class="site-author-name" itemprop="name">Martin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-apt-mirror"><span class="nav-number">1.</span> <span class="nav-text">安装 apt-mirror</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-apt-mirror"><span class="nav-number">2.</span> <span class="nav-text">配置 apt-mirror</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行-apt-mirror"><span class="nav-number">3.</span> <span class="nav-text">运行 apt-mirror</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-HTTP-Server"><span class="nav-number">4.</span> <span class="nav-text">配置 HTTP Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用-mirror"><span class="nav-number">5.</span> <span class="nav-text">应用 mirror</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">6.</span> <span class="nav-text">其他</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Martin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,743 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Project Tango," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Basic example hello depth perception完整的代码可以在 github 上找到。 On tango service connected范例基于 Android 开发，我们从 JNI 以下的代码说起。当连接到 tango 设备时的回调处理：1234567JNIEXPORT void JNICALLJava_com_projecttango_examples_cpp_h">
+<meta name="keywords" content="Project Tango">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tango Example hello area description">
+<meta property="og:url" content="http://blog.antkit.com/2017/07/28/Tango-Example-hello-area-description/index.html">
+<meta property="og:site_name" content="Antkit">
+<meta property="og:description" content="Basic example hello depth perception完整的代码可以在 github 上找到。 On tango service connected范例基于 Android 开发，我们从 JNI 以下的代码说起。当连接到 tango 设备时的回调处理：1234567JNIEXPORT void JNICALLJava_com_projecttango_examples_cpp_h">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-12T00:53:36.942Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tango Example hello area description">
+<meta name="twitter:description" content="Basic example hello depth perception完整的代码可以在 github 上找到。 On tango service connected范例基于 Android 开发，我们从 JNI 以下的代码说起。当连接到 tango 设备时的回调处理：1234567JNIEXPORT void JNICALLJava_com_projecttango_examples_cpp_h">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.antkit.com/2017/07/28/Tango-Example-hello-area-description/"/>
+
+
+
+
+<link rel="stylesheet" href="/vendors/prettify/prettify.css" type="text/css">
+<script src="/vendors/prettify/prettify.js" type="text/javascript"></script>
+
+
+  <title>Tango Example hello area description | Antkit</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Antkit</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.antkit.com/2017/07/28/Tango-Example-hello-area-description/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Martin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Antkit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tango Example hello area description</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-28T10:26:42+08:00">
+                2017-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tango/" itemprop="url" rel="index">
+                    <span itemprop="name">Tango</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Basic-example-hello-depth-perception"><a href="#Basic-example-hello-depth-perception" class="headerlink" title="Basic example hello depth perception"></a>Basic example hello depth perception</h2><p>完整的代码可以在 <a href="https://github.com/googlesamples/tango-examples-c/blob/master/cpp_basic_examples/hello_area_description" target="_blank" rel="external">github</a> 上找到。</p>
+<h2 id="On-tango-service-connected"><a href="#On-tango-service-connected" class="headerlink" title="On tango service connected"></a>On tango service connected</h2><p>范例基于 Android 开发，我们从 JNI 以下的代码说起。当连接到 tango 设备时的回调处理：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">JNIEXPORT <span class="keyword">void</span> JNICALL</div><div class="line">Java_com_projecttango_examples_cpp_helloareadescription_TangoJniNative_onTangoServiceConnected(</div><div class="line">    JNIEnv* env, jobject, jobject binder, jboolean is_area_learning_enabled,</div><div class="line">    jboolean is_loading_area_description) &#123;</div><div class="line">  app.OnTangoServiceConnected(env, binder, is_area_learning_enabled,</div><div class="line">                              is_loading_area_description);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> AreaLearningApp::OnTangoServiceConnected(</div><div class="line">    JNIEnv* env, jobject binder, <span class="keyword">bool</span> is_area_learning_enabled,</div><div class="line">    <span class="keyword">bool</span> is_loading_area_description) &#123;</div><div class="line">  ...</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (is_area_learning_enabled || is_loading_area_description) &#123;</div><div class="line">    <span class="comment">// Here, we'll configure the service to run in the way we'd want. For this</span></div><div class="line">    <span class="comment">// application, we'll start from the default configuration</span></div><div class="line">    <span class="comment">// (TANGO_CONFIG_DEFAULT). This enables basic motion tracking capabilities.</span></div><div class="line">    tango_config_ = TangoService_getConfig(TANGO_CONFIG_DEFAULT);</div><div class="line">    <span class="keyword">if</span> (tango_config_ == <span class="literal">nullptr</span>) &#123;</div><div class="line">      LOGE(<span class="string">"AreaLearningApp: Failed to get default config form"</span>);</div><div class="line">      <span class="built_in">std</span>::<span class="built_in">exit</span>(EXIT_SUCCESS);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> ret = TangoConfig_setBool(tango_config_, <span class="string">"config_enable_learning_mode"</span>,</div><div class="line">                                  is_area_learning_enabled);</div><div class="line">    <span class="keyword">if</span> (ret != TANGO_SUCCESS) &#123;</div><div class="line">      LOGE(</div><div class="line">          <span class="string">"AreaLearningApp: config_enable_learning_mode failed with error"</span></div><div class="line">          <span class="string">"code: %d"</span>,</div><div class="line">          ret);</div><div class="line">      <span class="built_in">std</span>::<span class="built_in">exit</span>(EXIT_SUCCESS);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// If load ADF, load the most recent saved ADF.</span></div><div class="line">    <span class="keyword">if</span> (is_loading_area_description) &#123;</div><div class="line">      <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; adf_list;</div><div class="line">      GetAdfUuids(&amp;adf_list);</div><div class="line">      <span class="keyword">if</span> (!adf_list.empty()) &#123;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> adf_uuid = adf_list.back();</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">ostringstream</span> adf_str_stream;</div><div class="line">        adf_str_stream &lt;&lt; <span class="string">"Number of ADFs:"</span> &lt;&lt; adf_list.size()</div><div class="line">                       &lt;&lt; <span class="string">", Loaded ADF: "</span> &lt;&lt; adf_uuid;</div><div class="line">        loaded_adf_string_ = adf_str_stream.str();</div><div class="line">        ret = TangoConfig_setString(tango_config_,</div><div class="line">                                    <span class="string">"config_load_area_description_UUID"</span>,</div><div class="line">                                    adf_uuid.c_str());</div><div class="line">        <span class="keyword">if</span> (ret != TANGO_SUCCESS) &#123;</div><div class="line">          LOGE(<span class="string">"AreaLearningApp: get ADF UUID failed with error code: %d"</span>, ret);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// Setting up the frame pair for the onPoseAvailable callback.</span></div><div class="line">    TangoCoordinateFramePair pairs[<span class="number">3</span>] = &#123;</div><div class="line">        &#123;TANGO_COORDINATE_FRAME_START_OF_SERVICE,</div><div class="line">         TANGO_COORDINATE_FRAME_DEVICE&#125;,</div><div class="line">        &#123;TANGO_COORDINATE_FRAME_AREA_DESCRIPTION,</div><div class="line">         TANGO_COORDINATE_FRAME_DEVICE&#125;,</div><div class="line">        &#123;TANGO_COORDINATE_FRAME_AREA_DESCRIPTION,</div><div class="line">         TANGO_COORDINATE_FRAME_START_OF_SERVICE&#125;&#125;;</div><div class="line"></div><div class="line">    <span class="comment">// Attach onPoseAvailable callback.</span></div><div class="line">    <span class="comment">// The callback will be called after the service is connected.</span></div><div class="line">    ret = TangoService_connectOnPoseAvailable(<span class="number">3</span>, pairs, onPoseAvailableRouter);</div><div class="line">    <span class="keyword">if</span> (ret != TANGO_SUCCESS) &#123;</div><div class="line">      LOGE(</div><div class="line">          <span class="string">"AreaLearningApp: Failed to connect to pose callback with error"</span></div><div class="line">          <span class="string">"code: %d"</span>,</div><div class="line">          ret);</div><div class="line">      <span class="built_in">std</span>::<span class="built_in">exit</span>(EXIT_SUCCESS);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// Connect to the Tango Service, the service will start running:</span></div><div class="line">    <span class="comment">// point clouds can be queried and callbacks will be called.</span></div><div class="line">    ret = TangoService_connect(<span class="keyword">this</span>, tango_config_);</div><div class="line">    <span class="keyword">if</span> (ret != TANGO_SUCCESS) &#123;</div><div class="line">      LOGE(</div><div class="line">          <span class="string">"AreaLearningApp::OnTangoServiceConnected,"</span></div><div class="line">          <span class="string">"Failed to connect to the Tango service with error code: %d"</span>,</div><div class="line">          ret);</div><div class="line">      <span class="built_in">std</span>::<span class="built_in">exit</span>(EXIT_SUCCESS);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>相较与 color 和 depth，pose 的初始设置更复杂，其中有大量是关于 ADF（Automatic Direction Finder：自动方位搜寻器）的，实际代码还另有大量处理 ADF 的函数被定义和实现，请参考原始代码。</p>
+<p>我们这里重点关注 PoseAvailable 的回调 OnPoseAvailableRouter。</p>
+<h2 id="On-pose-available"><a href="#On-pose-available" class="headerlink" title="On pose available"></a>On pose available</h2><p>接下来我们看看在回调函数中如何处理 pose 数据：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">namespace</span> &#123;</div><div class="line"><span class="comment">// The minimum Tango Core version required from this application.</span></div><div class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> kTangoCoreMinimumVersion = <span class="number">9377</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> kVersionStringLength = <span class="number">128</span>;</div><div class="line"></div><div class="line"><span class="comment">// This function routes onPoseAvailable callbacks to the application object for</span></div><div class="line"><span class="comment">// handling.</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// @param context, context will be a pointer to a AreaLearningApp</span></div><div class="line"><span class="comment">//        instance on which to call callbacks.</span></div><div class="line"><span class="comment">// @param pose, pose data to route to onPoseAvailable function.</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">onPoseAvailableRouter</span><span class="params">(<span class="keyword">void</span>* context, <span class="keyword">const</span> TangoPoseData* pose)</span> </span>&#123;</div><div class="line">  hello_area_description::AreaLearningApp* app =</div><div class="line">      <span class="keyword">static_cast</span>&lt;hello_area_description::AreaLearningApp*&gt;(context);</div><div class="line">  app-&gt;onPoseAvailable(pose);</div><div class="line">&#125;</div><div class="line">&#125;  <span class="comment">// namespace</span></div><div class="line"></div><div class="line"><span class="keyword">void</span> AreaLearningApp::onPoseAvailable(<span class="keyword">const</span> TangoPoseData* pose) &#123;</div><div class="line">  <span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; lock(pose_mutex_);</div><div class="line">  pose_data_.UpdatePose(*pose);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Pose 数据被保存在成员变量 pose<em>data</em> 中，它的定义：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// pose_data_ handles all pose onPoseAvailable callbacks, onPoseAvailable()</span></div><div class="line"><span class="comment">// in this object will be routed to pose_data_ to handle.</span></div><div class="line">PoseData pose_data_;</div></pre></td></tr></table></figure></p>
+<h2 id="PoseData"><a href="#PoseData" class="headerlink" title="PoseData"></a>PoseData</h2><p>这里出现的 PoseData 并非 SDK 提供，其完整定义如下。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// PoseData holds all pose related data. E.g. pose position, rotation and time-</span></div><div class="line"><span class="comment">// stamp. It also produce the debug information strings.</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">PoseData</span> &#123;</span></div><div class="line"> <span class="keyword">public</span>:</div><div class="line">  PoseData();</div><div class="line">  ~PoseData();</div><div class="line"></div><div class="line">  <span class="comment">// Update current pose and previous pose.</span></div><div class="line">  <span class="comment">//</span></div><div class="line">  <span class="comment">// @param pose: pose data of current frame.</span></div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">UpdatePose</span><span class="params">(<span class="keyword">const</span> TangoPoseData&amp; pose_data)</span></span>;</div><div class="line"></div><div class="line">  <span class="comment">// Reset all saved pose data.</span></div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">ResetPoseData</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">  <span class="comment">// Get pose data in current frame.</span></div><div class="line">  <span class="comment">//</span></div><div class="line">  <span class="comment">// @return: curent pose data.</span></div><div class="line">  <span class="function">TangoPoseData <span class="title">GetCurrentPoseData</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">  <span class="comment">// Check if the device is relocalized.</span></div><div class="line">  <span class="comment">//</span></div><div class="line">  <span class="comment">// @return: relocalized flag.</span></div><div class="line">  <span class="function"><span class="keyword">bool</span> <span class="title">IsRelocalized</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> is_relocalized_; &#125;</div><div class="line"></div><div class="line"> <span class="keyword">private</span>:</div><div class="line">  <span class="comment">// Relocalized flag, the relocalization is determined by the pose in start of</span></div><div class="line">  <span class="comment">// service with respect to ADF turns to valid.</span></div><div class="line">  <span class="keyword">bool</span> is_relocalized_ = <span class="literal">false</span>;</div><div class="line"></div><div class="line">  TangoPoseData adf_T_device_pose_;</div><div class="line">  TangoPoseData start_service_T_device_pose_;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">PoseData::PoseData() &#123;&#125;</div><div class="line"></div><div class="line">PoseData::~PoseData() &#123;&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> PoseData::UpdatePose(<span class="keyword">const</span> TangoPoseData&amp; pose_data) &#123;</div><div class="line">  <span class="comment">// We check the frame pair received in the pose_data instance, and store it</span></div><div class="line">  <span class="comment">// in the proper cooresponding local member.</span></div><div class="line">  <span class="comment">//</span></div><div class="line">  <span class="comment">// The frame pairs are the one we registred in the</span></div><div class="line">  <span class="comment">// TangoService_connectOnPoseAvailable functions during the setup of the</span></div><div class="line">  <span class="comment">// Tango configuration file.</span></div><div class="line">  <span class="keyword">if</span> (pose_data.frame.base == TANGO_COORDINATE_FRAME_START_OF_SERVICE &amp;&amp;</div><div class="line">      pose_data.frame.target == TANGO_COORDINATE_FRAME_DEVICE) &#123;</div><div class="line">    start_service_T_device_pose_ = pose_data;</div><div class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pose_data.frame.base == TANGO_COORDINATE_FRAME_AREA_DESCRIPTION &amp;&amp;</div><div class="line">             pose_data.frame.target == TANGO_COORDINATE_FRAME_DEVICE) &#123;</div><div class="line">    adf_T_device_pose_ = pose_data;</div><div class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pose_data.frame.base == TANGO_COORDINATE_FRAME_AREA_DESCRIPTION &amp;&amp;</div><div class="line">             pose_data.frame.target ==</div><div class="line">                 TANGO_COORDINATE_FRAME_START_OF_SERVICE) &#123;</div><div class="line">    is_relocalized_ = (pose_data.status_code == TANGO_POSE_VALID);</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> PoseData::ResetPoseData() &#123; is_relocalized_ = <span class="literal">false</span>; &#125;</div><div class="line"></div><div class="line">TangoPoseData PoseData::GetCurrentPoseData() &#123;</div><div class="line">  <span class="keyword">if</span> (is_relocalized_) &#123;</div><div class="line">    <span class="keyword">return</span> adf_T_device_pose_;</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span> start_service_T_device_pose_;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="TangoPoseData"><a href="#TangoPoseData" class="headerlink" title="TangoPoseData"></a>TangoPoseData</h2><p>SDK 所提供的 TangoPoseData，完整信息请查看 <a href="https://developers.google.com/tango/apis/c/reference/struct/tango-pose-data" target="_blank" rel="external">官方文档</a>，下面只重点说明几个公共属性。</p>
+<h3 id="frame"><a href="#frame" class="headerlink" title="frame"></a>frame</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TangoCoordinateFramePair TangoPoseData::frame</div></pre></td></tr></table></figure>
+<p>The pair of coordinate frames for this pose.</p>
+<p>We retrieve a pose for a target coordinate frame (such as the Tango device) against a base coordinate frame (such as a learned area).</p>
+<h3 id="orientation"><a href="#orientation" class="headerlink" title="orientation"></a>orientation</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">double</span> TangoPoseData::orientation[<span class="number">4</span>]</div></pre></td></tr></table></figure>
+<p>Orientation, as a quaternion, of the pose of the target frame with reference to the base frame.</p>
+<p>Specified as (x,y,z,w) where RotationAngle is in radians:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">x = RotationAxis.x * <span class="built_in">sin</span>(RotationAngle / <span class="number">2</span>)</div><div class="line">y = RotationAxis.y * <span class="built_in">sin</span>(RotationAngle / <span class="number">2</span>)</div><div class="line">z = RotationAxis.z * <span class="built_in">sin</span>(RotationAngle / <span class="number">2</span>)</div><div class="line">w = <span class="built_in">cos</span>(RotationAngle / <span class="number">2</span>)</div></pre></td></tr></table></figure>
+<h3 id="status-code"><a href="#status-code" class="headerlink" title="status_code"></a>status_code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TangoPoseStatusType TangoPoseData::status_code</div></pre></td></tr></table></figure>
+<p>The status of the pose, according to the pose lifecycle.</p>
+<h3 id="timestamp"><a href="#timestamp" class="headerlink" title="timestamp"></a>timestamp</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">double</span> TangoPoseData::timestamp</div></pre></td></tr></table></figure>
+<p>The timestamp of the pose estimate, in seconds.</p>
+<h3 id="translation"><a href="#translation" class="headerlink" title="translation"></a>translation</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">double</span> TangoPoseData::translation[<span class="number">3</span>]</div></pre></td></tr></table></figure>
+<p>Translation, ordered x, y, z, of the pose of the target frame with reference to the base frame.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Project-Tango/" rel="tag"># Project Tango</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/28/Tango-Example-hello-depth-perception/" rel="next" title="Tango Example hello depth perception">
+                <i class="fa fa-chevron-left"></i> Tango Example hello depth perception
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/11/Gerrit-集锦/" rel="prev" title="Gerrit 集锦">
+                Gerrit 集锦 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Martin" />
+          <p class="site-author-name" itemprop="name">Martin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-example-hello-depth-perception"><span class="nav-number">1.</span> <span class="nav-text">Basic example hello depth perception</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#On-tango-service-connected"><span class="nav-number">2.</span> <span class="nav-text">On tango service connected</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#On-pose-available"><span class="nav-number">3.</span> <span class="nav-text">On pose available</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PoseData"><span class="nav-number">4.</span> <span class="nav-text">PoseData</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TangoPoseData"><span class="nav-number">5.</span> <span class="nav-text">TangoPoseData</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#frame"><span class="nav-number">5.1.</span> <span class="nav-text">frame</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#orientation"><span class="nav-number">5.2.</span> <span class="nav-text">orientation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#status-code"><span class="nav-number">5.3.</span> <span class="nav-text">status_code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timestamp"><span class="nav-number">5.4.</span> <span class="nav-text">timestamp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#translation"><span class="nav-number">5.5.</span> <span class="nav-text">translation</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Martin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
